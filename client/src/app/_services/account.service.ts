@@ -47,3 +47,24 @@ export class AccountService {
     this.currentUserSource.next(null);
   }
 }
+/*
+Q: if I log in as Lisa and then logout the Lisa and password still exists...
+
+A: this can be fixed easily enough by resetting the form after you have successfully logged in.  
+Since the login form is a template form you would need to use the @ViewChild directive to get 
+access to the form itself, then in the component after the successful login you can simply call 
+form.reset(), something like the following:
+
+@ViewChild('loginForm') loginForm: NgForm
+
+Then in the login method:
+  login() {
+    this.accountService.login(this.model).subscribe(response => {
+      this.loginForm.reset();
+      this.router.navigateByUrl('/members');
+    })
+  }
+
+Thanks,
+Neil
+*/
